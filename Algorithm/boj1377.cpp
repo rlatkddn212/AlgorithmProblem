@@ -1,30 +1,27 @@
 #include <iostream>
+#include <vector>
+#include <limits.h>
+#include <algorithm>
 using namespace std;
-int A[500001];
 int main()
 {
-	int N;
-	cin >> N;
-	for (int i = 1; i <= N; ++i)
+	int n;
+	cin >> n;
+	vector<pair<int,int> > arr(n);
+	
+	for(int i = 0 ; i < n ; ++i)
 	{
-		cin >> A[i];
+		int a;
+		cin >> a;
+		arr[i] = make_pair(a, i);
 	}
-	int i, j, temp;
-	int change;
-	for (i = 1; i <= N; i++) {
-		change = 0;
-		for (j = 1; j <= N - i; j++) {
-			if (A[j] > A[j + 1]) {
-				change = 1;
-				temp = A[j];
-				A[j] = A[j + 1];
-				A[j + 1] = temp;
-			}
-		}
-		if (change == 0) {
-			break;
-		}
+
+	sort(arr.begin(), arr.end());
+	int counter = 0;
+	for(int i = 0 ; i < arr.size() ; ++i)
+	{
+		counter = max(arr[i].second - i, counter);
 	}
-	printf("%d\n", i);
+	cout << counter+1;
 	return 0;
 }
